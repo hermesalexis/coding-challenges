@@ -1,0 +1,50 @@
+# Auto-generated code below aims at helping you parse
+# the standard input according to the problem statement.
+
+# ASCII art allows you to represent forms by using characters. To be precise, in our case, these forms are words.
+# For example, the word "MANHATTAN" could be displayed as follows in ASCII art:
+
+
+  # #  #  ### # #  #  ### ###  #  ###
+  ### # # # # # # # #  #   #  # # # #
+  ### ### # # ### ###  #   #  ### # #
+  # # # # # # # # # #  #   #  # # # #
+  # # # # # # # # # #  #   #  # # # #
+
+# Your mission is to write a program that can display a line of text in ASCII art in a style you are given as input.
+
+l = gets.to_i
+h = gets.to_i
+t = gets.chomp.split('').map(&:downcase)
+hash_letters = {}
+(('a'..'z').to_a + ['?']).each { |letter| hash_letters[letter] = [] }
+
+h.times do
+    row = gets.chomp
+    initial_index = 0
+    final_index = l
+
+    hash_letters.keys.each do |letter|
+      hash_letters[letter] << row[initial_index...final_index]
+      initial_index = final_index
+      final_index = initial_index + l
+    end
+end
+
+
+h.times do |index|
+    message = ''
+
+    t.each do |letter|
+        array_letter = hash_letters[letter]
+        message += array_letter.nil? ?  hash_letters['?'][index] : hash_letters[letter][index]
+    end
+
+    puts message
+end
+
+# puts "#{alphabet[0][0..3]}#{alphabet[0][4..7]}"
+# puts "#{alphabet[1][0..3]}#{alphabet[1][4..7]}"
+# puts "#{alphabet[2][0..3]}#{alphabet[2][4..7]}"
+# puts "#{alphabet[3][0..3]}#{alphabet[3][4..7]}"
+# puts "#{alphabet[4][0..3]}#{alphabet[4][4..7]}"
